@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<meta charset="UTF-8">
+	<title>Idea Wall</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1>Hi <%=session[:alias]%></h1>
+			<a href="/sessions/destroy">Log Out</a>
+		</div>
+		<div class="row">
+			<form action="/ideas" method="post" class="col-sm-10 col-sm-offset-1">
+				<input type="hidden" name="authenticity_token" value="form_authenticity_token">
+				<input type="hidden" name="idea[user_id]" value="<%=session[:user_id]%>">
+				
+				
+				<input type="hidden" name="like[counter]" value="0">
+				<textarea class="form-control" name="idea[message]" id="" cols="80" rows="3"></textarea>
+				<input type="submit" value="Post" class="btn btn-primary">
+			</form>
+			
+		</div>
+		<div class="row col-sm-8 col-sm-offset-2">
+			<%=flash[:cannot]%>
+			<%=flash[:delete]%>
+			<% @ideas.each do |idea| %>
+			<div class="row">
+				<h4 ><a href="/users/<%=idea.user.id%>"><%=idea.user.alias%></a> says: </h4>
+				<p> <%=idea.message%> </p>
+				<form action="/ideas/<%=idea.id%>" method="post">
+					<input type="hidden" name="_method" value="put">
+					<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+					<input type="hidden" name="like[user_id]" value="<%=session[:user_id]%>">
+					<input type="hidden" name="like[idea_id]" value="<%=idea.id%>">
+					
+					<input type="submit" value="Like!" class="btn btn-success">
+				</form>
+				<form action="/ideas/<%=idea.id%>" method="post">
+								<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+								<input type="hidden" name="_method" value="delete">
+								<input type="hidden" name="session_id" value="<%=session[:user_id]%>">
+								<input type="hidden" name="post_user_id]" value="<%=idea.user.id%>">
+								<input type="submit" value="Delete" class="btn btn-danger">
+				</form>
+
+				<p> <a class="" href="/ideas/<%=idea.id%>"><%=idea.likes%> people</a> liked this </p>
+
+			</div>	
+			<% end %>
+
+		</div>
+	</div>
+</body>
+</html>

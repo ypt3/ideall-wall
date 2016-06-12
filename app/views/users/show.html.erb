@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h2>Profile Page</h2>
+	<a href="/ideas/index">Idea Wall</a> <a href="/sessions/destroy">Log Out</a>
+	<h3>Name: <%=@user.name%></h3>
+	<h3>Alias: <%=@user.alias%></h3>
+	<h3>Email: <%=@user.email%></h3>
+
+	<h4>Total number of posts: <%=@user.post_counter%></h4>
+	<h4>Total number of likes: <%=@user.like_counter%></h4>
+</body>
+</html>

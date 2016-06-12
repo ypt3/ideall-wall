@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<a href="/ideas/index">Idea Wall</a>
+			<a href="/sessions/destroy">Log Out</a>
+		</div>
+		<div class="row">
+			<h3><%=@idea.user.alias%> said:</h3>
+			<h3><%=@idea.message%></h3>
+		</div>
+		<div class="row">
+			<h2>People who liked this post:</h2>
+			<div class="row">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Alias</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @likes.each do |like| %>
+						<tr>
+							<td><%=like.user.alias%></td>
+							<td><%=like.user.name%></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
